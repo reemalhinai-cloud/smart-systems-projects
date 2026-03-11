@@ -1,0 +1,69 @@
+#define BLYNK_TEMPLATE_ID "TMPL6kyKAV3QO"
+#define BLYNK_TEMPLATE_NAME "project G4"
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+// Specify your Blynk template name and ID here
+#define BLYNK_AUTH_TOKEN "sai0MvxEJnH7E5EC432thvn4e9ApiSu4"
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "PROJECT G4";
+char pass[] = "12345678";
+// Pin numbers connected to relay module and water sensor
+int relayON = D5; // Connect this pin to the relay that opens the
+door
+int relayOFF = D6; // Connect this pin to the relay that closes the
+door
+int waterSensorPin = A0; // Connect the water sensor to Analog Pin
+A0
+void closeDoor() {
+digitalWrite(relayOFF, LOW); // Activate the relay to close the
+door
+delay(750); // Delay for 750 milliseconds
+digitalWrite(relayOFF, HIGH); // Turn OFF the relay to stop
+closing the door
+Serial.println("Door closed for 750ms during initial setup.");
+}
+void setup() {
+Serial.begin(9600);
+Blynk.begin(auth, ssid, pass, "blynk.cloud", 80);
+pinMode(relayON, OUTPUT);
+pinMode(relayOFF, OUTPUT);
+closeDoor(); // Ensure the door is closed for 750 milliseconds
+upon starting the program
+}
+BLYNK_WRITE(V1) {
+// Called when the OPEN button is pressed
+int state = param.asInt();
+// Check water sensor before opening the door
+if (waterDetected()) {
+Serial.println("Water detected! Door not opened.");
+} else {
+digitalWrite(relayON, !state); // Invert the signal to open the
+door
+Serial.println("Door opened.");
+delay(750); // Delay for 750 milliseconds
+digitalWrite(relayON, HIGH); // Turn OFF the relay to stop
+opening the door
+Serial.println("Door stopped after 750ms.");
+}
+}
+BLYNK_WRITE(V2) {
+// Called when the CLOSE button is pressed
+int state = param.asInt();
+digitalWrite(relayOFF, !state); // Invert the signal to close the
+door
+Serial.println("Door closed.");
+delay(750); // Delay for 750 milliseconds
+digitalWrite(relayOFF, HIGH); // Ensure the door is closed after
+the delay
+}
+bool waterDetected() {
+// Read water sensor value
+int waterSensorValue = analogRead(waterSensorPin);
+// Adjust the threshold value based on your sensor characteristics
+int threshold = 300;
+// Check if water is present based on the threshold
+return (waterSensorValue > threshold);
+}
+void loop() {
+Blynk.run();
+}
