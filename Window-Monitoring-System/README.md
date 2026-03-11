@@ -12,3 +12,6 @@ It also allows users to monitor and control the window remotely through IoT conn
 - DC motor
 - Solar panel
 - Battery
+
+## Circuit Diagram
+![Circuit](image.png)
