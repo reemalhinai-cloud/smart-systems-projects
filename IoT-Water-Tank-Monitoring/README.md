@@ -13,3 +13,6 @@ The system uses Arduino Mega and NodeMCU ESP8266 for automation and remote monit
 - Water sensor
 - LCD display
 - Relay module
+
+## Circuit Diagram
+![Circuit](circuit.jpg)
