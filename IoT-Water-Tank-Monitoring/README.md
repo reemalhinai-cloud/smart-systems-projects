@@ -15,4 +15,4 @@ The system uses Arduino Mega and NodeMCU ESP8266 for automation and remote monit
 - Relay module
 
 ## Circuit Diagram
-![Circuit](circuit.jpg)
+![Circuit](image.png)
