@@ -10,4 +10,4 @@ The system allows authorized users to unlock the door wirelessly using encoded R
 ![Transmitter Circuit](transmitter_circuit.jpg)
 
 ### Receiver Circuit
-![Receiver Circuit](receiver_circuit.jpg)
+![Receiver Circuit](image.png)
